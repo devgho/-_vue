@@ -1,0 +1,156 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>天天生鲜-商品列表</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/vue.js"></script>
+</head>
+
+<body>
+	<div id="feng">
+		<div class="header_con">
+			<div class="header">
+				<div class="welcome fl">欢迎来到天天生鲜!</div>
+				<div class="fr">
+					<div class="login_info fl">
+						欢迎您：<em>刘 博</em>
+					</div>
+					<div class="login_btn fl">
+						<a href="login.html">登录</a>
+						<span>|</span>
+						<a href="register.html">注册</a>
+					</div>
+					<div class="user_link fl">
+						<span>|</span>
+						<a href="user_center_info.html">用户中心</a>
+						<span>|</span>
+						<a href="cart.html">我的购物车</a>
+						<span>|</span>
+						<a href="user_center_info.html">我的订单</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="search_bar clearfix">
+			<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+			<div class="search_con fl">
+				<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+				<input type="button" class="input_btn fr" name="" value="搜索">
+			</div>
+			<div class="guest_cart fr">
+				<a href="cart.html" class="cart_name fl">我的购物车</a>
+				<div class="goods_count fl">1</div>
+			</div>
+		</div>
+
+		<div class="main_wrap clearfix">
+			<div class="l_wrap fl clearfix">
+				<div class="new_goods">
+					<h3>新品推荐</h3>
+					<ul>
+						<li>
+							<a href="#"><img src="images/goods/goods001.jpg"></a>
+							<h4><a href="#">进口柠檬</a></h4>
+							<div class="prize">￥3.90</div>
+						</li>
+						<li>
+							<a href="#"><img src="images/goods/goods002.jpg"></a>
+							<h4><a href="#">玫瑰香葡萄</a></h4>
+							<div class="prize">￥16.80</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="r_wrap fr clearfix">
+				<div class="sort_bar">
+					<!-- <a href="#" class="active">新鲜水果</a> -->
+					<a href="#" v-for="type in types" @click.prevent="act(type,$event)">{{type}}</a>
+				</div>
+
+				<ul class="goods_type_list clearfix">
+					<li v-for="good in goods" v-if="good.type == now_type && ( good.name.indexOf(search)!=-1 || (search==undefined&&search == '') ) || now_type == ''">
+						<a href="detail.html"><img :src="good.img"></a>
+						<h4><a href="detail.html">{{good.name}}</a></h4>
+						<div class="operate">
+							<span class="prize">￥{{good.price}}</span>
+							<span class="unit">{{good.weight}}</span>
+							<a href="#" class="add_goods" title="加入购物车"></a>
+						</div>
+					</li>
+				</ul>
+
+				<div class="pagenation">
+					<a href="#">
+						<上一页</a>
+							<a href="#" class="active">1</a>
+							<a href="#">2</a>
+							<a href="#">3</a>
+							<a href="#">4</a>
+							<a href="#">5</a>
+							<a href="#">下一页></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="foot_link">
+				<a href="#">关于我们</a>
+				<span>|</span>
+				<a href="#">联系我们</a>
+				<span>|</span>
+				<a href="#">招聘人才</a>
+				<span>|</span>
+				<a href="#">友情链接</a>
+			</div>
+			<p>CopyRight © 2016 北京某某信息技术有限公司 All Rights Reserved</p>
+			<p>电话：010-****888 京ICP备*******8号</p>
+		</div>
+	</div>
+
+
+	<script>
+		let v = new Vue({
+			el:'#feng',
+			data:{
+				old_e:{},
+				now_type:'',
+				search:'',
+				types:['水果','海鲜','速冻'],
+				goods:[
+					{name:'大兴大棚草莓',price:'16.80',img:'images/goods/goods003.jpg',wight:'500g',type:'水果'},
+					{name:'大兴大棚草莓',price:'16.80',img:'images/goods/goods003.jpg',wight:'500g',type:'水果'},
+					{name:'大兴大棚草莓',price:'16.80',img:'images/goods/goods003.jpg',wight:'500g',type:'水果'},
+					{name:'大兴大棚草莓',price:'16.80',img:'images/goods/goods003.jpg',wight:'500g',type:'水果'},
+					{name:'大兴大棚草莓',price:'16.80',img:'images/goods/goods003.jpg',wight:'500g',type:'水果'},
+					{name:'大兴大棚草莓',price:'16.80',img:'images/goods/goods003.jpg',wight:'500g',type:'水果'},
+					{name:'波士顿小龙虾',price:'33.80',img:'images/goods/goods018.jpg',wight:'500g',type:'海鲜'},
+					{name:'波士顿小龙虾',price:'33.80',img:'images/goods/goods018.jpg',wight:'500g',type:'海鲜'},
+					{name:'波士顿小龙虾',price:'33.80',img:'images/goods/goods018.jpg',wight:'500g',type:'海鲜'},
+					{name:'波士顿小龙虾',price:'33.80',img:'images/goods/goods018.jpg',wight:'500g',type:'海鲜'},
+					{name:'波士顿小龙虾',price:'33.80',img:'images/goods/goods018.jpg',wight:'500g',type:'海鲜'},
+				]
+			},
+			methods:{
+				act(type,that){
+					this.now_type=type;
+					this.old_e.className = "";
+					this.old_e = that.currentTarget;
+					that.currentTarget.className="active";
+				}
+			},
+			mounted(){
+				document.querySelector('.sort_bar').querySelector('a').click();
+				let str = window.location.search.split("=");
+				this.search = decodeURIComponent(str[1]);
+			},
+		})
+	</script>
+</body>
+
+</html>

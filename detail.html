@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>天天生鲜-商品详情</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="feng">
+		<div class="header_con">
+			<div class="header">
+				<div class="welcome fl">欢迎来到天天生鲜!</div>
+				<div class="fr">
+					<div class="login_info fl">
+						欢迎您：<em>刘 博</em>
+					</div>
+					<div class="login_btn fl">
+						<a href="login.html">登录</a>
+						<span>|</span>
+						<a href="register.html">注册</a>
+					</div>
+					<div class="user_link fl">
+						<span>|</span>
+						<a href="user_center_info.html">用户中心</a>
+						<span>|</span>
+						<a href="cart.html">我的购物车</a>
+						<span>|</span>
+						<a href="user_center_info.html">我的订单</a>
+					</div>
+				</div>
+			</div>		
+		</div>
+
+		<div class="search_bar clearfix">
+			<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+			<div class="search_con fl">
+				<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+				<input type="button" class="input_btn fr" name="" value="搜索">
+			</div>
+			<div class="guest_cart fr">
+				<a href="cart.html" class="cart_name fl">我的购物车</a>
+				<div class="goods_count fl" id="show_count">1</div>
+			</div>
+		</div>
+
+
+		<div class="goods_detail_con clearfix"  v-for="good in goods" v-if="good.id == nowid">
+			<div class="goods_detail_pic fl"><img :src="good.img" style="width: 300px;height: 300px;"></div>
+
+			<div class="goods_detail_list fr">
+				<h3>{{good.name}}</h3>
+				<p>{{good.profile}}</p>
+				<div class="prize_bar">
+					<span class="show_pirze">¥<em>{{good.price}}</em></span>
+					<span class="show_unit">单  位：{{good.weight}}</span>
+				</div>
+				<div class="goods_num clearfix">
+					<div class="num_name fl">数 量：</div>
+					<div class="num_add fl">
+						<input type="text" class="num_show fl" value="1">
+						<a href="javascript:;" class="add fr">+</a>
+						<a href="javascript:;" class="minus fr">-</a>	
+					</div> 
+				</div>
+				<div class="total">总价：<em>{{good.price}}元</em></div>
+				<div class="operate_btn">
+					<a href="javascript:;" class="buy_btn">立即购买</a>
+					<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
+				</div>
+			</div>
+		</div>
+
+		<div class="main_wrap clearfix">
+			<div class="l_wrap fl clearfix">
+				<div class="new_goods">
+					<h3>新品推荐</h3>
+					<ul>
+						<li v-for="good in news">
+							<a :href="sendURL(good.id)"><img :src="good.img"></a>
+							<h4><a :href="sendURL(good.id)">{{good.name}}</a></h4>
+							<div class="prize">￥{{good.price}}</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="r_wrap fr clearfix" v-for="good in goods" v-if="good.id == nowid">
+				<ul class="detail_tab clearfix">
+					<li class="active">商品介绍</li>
+					<li>评论</li>
+				</ul>
+
+				<div class="tab_content" >
+					<dl>
+						<dt>商品详情：</dt>
+						<dd>{{good.detail}}</dd>
+					</dl>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="foot_link">
+				<a href="#">关于我们</a>
+				<span>|</span>
+				<a href="#">联系我们</a>
+				<span>|</span>
+				<a href="#">招聘人才</a>
+				<span>|</span>
+				<a href="#">友情链接</a>		
+			</div>
+			<p>CopyRight © 2016 北京某某信息技术有限公司 All Rights Reserved</p>
+			<p>电话：010-****888    京ICP备*******8号</p>
+		</div>
+		<div class="add_jump"></div>
+	</div>
+	
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+		var $add_x = $('#add_cart').offset().top;
+		var $add_y = $('#add_cart').offset().left;
+
+		var $to_x = $('#show_count').offset().top;
+		var $to_y = $('#show_count').offset().left;
+
+		$(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'})
+		$('#add_cart').click(function(){
+			$(".add_jump").stop().animate({
+				'left': $to_y+7,
+				'top': $to_x+7},
+				"fast", function() {
+					$(".add_jump").fadeOut('fast',function(){
+						$('#show_count').html(2);
+					});
+
+			});
+		})
+		let v = new Vue({
+			el:'#feng',
+			data:{
+				nowid: 0,
+				goods:[
+					{id:1,name:'大兴大棚草莓',img:'images/goods/goods003.jpg',price:"16.80",weight:'500g',detail:'草莓采摘园位于北京大兴区 庞各庄镇四各庄村 ，每年1月-6月面向北京以及周围城市提供新鲜草莓采摘和精品礼盒装草莓，草莓品种多样丰富，个大香甜。所有草莓均严格按照有机标准培育，不使用任何化肥和农药。草莓在采摘期间免洗可以直接食用。欢迎喜欢草莓的市民前来采摘，也欢迎各大单位选购精品有机草莓礼盒，有机草莓礼盒是亲朋馈赠、福利送礼的最佳选择。',profile:'草莓浆果柔软多汁，味美爽口，适合速冻保鲜贮藏。草莓速冻后，可以保持原有的色、香、味，既便于贮藏，又便于外销。'},
+					{id:2,name:'大虾',img:'images/goods/goods021.jpg',price:"35.2",weight:'500g',detail:'每一只虾都经过严格筛选，巴掌大的虾品相完好，大口吃过瘾，虾身通透莹润有光泽，透过薄薄的壳看得见的饱满虾肉',profile:'大虾味美爽口，适合速冻保鲜贮藏。大虾速冻后，可以保持原有的色、香、味，既便于贮藏，又便于外销。'},
+					{id:3,name:'牛排',img:'images/slide03.jpg',price:"268.00",weight:'500g',detail:'精选18个月龄以上草饲牛，圈养后经科学谷物语饲养240天即保两草饲牛的香浓口感，又兼得谷饲牛的丰富雪花',profile:'牛排入口即化，口感丰富，上等的食材和重要的人一起分享。'},
+					{id:4,name:'有机土鸡蛋',img:'images/banner04.jpg',price:"16.80",weight:'500g',detail:'万亩农场基地，实现精细化管理式放牧，回归自然，不束缚鸡的天性，这样的鸡体质更健康，从源头隔绝农残激素，鸡吃的放心，我们才放心。',profile:'鸡蛋外表光滑细腻、圆润饱满，蛋黄饱满、手捏不破，蛋清浓稠、无腥味。'},
+					{id:5,name:'绿色有机蔬菜',img:'images/banner05.jpg',price:"16.80",weight:'500g',detail:'有机蔬菜禁止使用任何化学合成的农药、化肥、以及基因工程生物及其产物，三年休耕，蚯蚓、花生壳改良土壤环境，物理防虫，杜绝使用剧毒农药，人工除草，远离化学药剂，用勤劳汗水换来入口的安心轮作，均衡利用土壤养分，精细选种，非转基因。',profile:'有机蔬菜新鲜可口，不使用农药 、激素、化肥等有害物质，国际公认的安全的食品'},
+					{id:6,name:'香草冰淇淋',img:'images/banner06.jpg',price:"16.80",weight:'500g',detail:'从牛奶到美味冰淇淋，30年的品质保障，，三代人的忠实选择，一口就可以吃到奶香味，奶味从鼻尖到舌尖，一口沁心的冰凉在舌尖融化出水果的酸花朵的香，清清爽爽的甜',profile:'细腻浓滑好品质，口感顺滑，味道香浓、清爽、不甜腻。'},
+					{id:7,name:'进口柠檬',img:'images/goods/goods001.jpg',price:"16.80",weight:'500g',detail:'草莓浆果柔软多汁，味美爽口，适合速冻保鲜贮藏。草莓速冻后，可以保持原有的色、香、味，既便于贮藏，又便于外销。',profile:'柠檬果皮色泽鲜黄，果型椭圆两端稍尖，果肉米黄色。酸爽多汁。'},
+				    {id:8,name:'玫瑰香葡萄',img:'images/goods/goods002.jpg',price:"15.50",weight:'500g',detail:'生长过程，套无菌袋，葡萄表皮，果粉充足，清晨新鲜采摘成熟的葡萄，修建坏粒，甄选新鲜饱满的葡萄。',profile:'果实坚实、皮薄肉厚、含糖量高'},
+				    {id:9,name:'红富士苹果',img:'images/goods/goods002.jpg',price:"15.50",weight:'500g',detail:'生长过程，套无菌袋，葡萄表皮，果粉充足，清晨新鲜采摘成熟的葡萄，修建坏粒，甄选新鲜饱满的葡萄。',profile:'果实坚实、皮薄肉厚、含糖量高'},
+					{id:10,name:'海南大椰子',img:'images/goods/goods015.jpg',price:"14.00",weight:'500g',detail:'很大很大的椰子🥥哟',profile:'大又甜'},
+					{id:11,name:'库尔勒香梨',price:'17.30',img:'images/goods/goods007.jpg',wight:'500g',type:'水果',detail:'大梨子,超甜',profile:'脆又甜.................'},
+					{id:12,name:'大红虾',price:'35.20',img:'images/banner02.jpg',wight:'500g',type:'海鲜',detail:'无敌好吃',profile:'无敌好吃'},
+					{id:13,name:'草鱼',price:'33.80',img:'images/goods/goods020.jpg',wight:'500g',type:'海鲜',detail:'次烧肉多',profile:'肉质鲜嫩'},
+					{id:14,name:'扇贝',price:'12.50',img:'images/goods/goods019.jpg',wight:'500g',type:'海鲜',detail:'高蛋白质',profile:'极品品质'},
+					{id:15,name:'菲力牛排',price:'268.00',img:'images/banner03.jpg',wight:'500g',type:'肉类',detail:'经典原切',profile:'比美国人吃的好'},
+				],
+				news:[
+				{id:7,name:'进口柠檬',img:'images/goods/goods001.jpg',price:"16.80",weight:'500g',detail:'草莓浆果柔软多汁，味美爽口，适合速冻保鲜贮藏。草莓速冻后，可以保持原有的色、香、味，既便于贮藏，又便于外销。',profile:'柠檬果皮色泽鲜黄，果型椭圆两端稍尖，果肉米黄色。酸爽多汁。'},
+				{id:8,name:'玫瑰香葡萄',img:'images/goods/goods002.jpg',price:"15.50",weight:'500g',detail:'生长过程，套无菌袋，葡萄表皮，果粉充足，清晨新鲜采摘成熟的葡萄，修建坏粒，甄选新鲜饱满的葡萄。',profile:'果实坚实、皮薄肉厚、含糖量高'}
+				]
+			},
+			methods:{
+				sendURL(id){
+					return '?id='+id;
+				}
+			}
+			,
+			mounted(){
+				let search = window.location.search;
+				this.nowid = search.split("=")[1];
+			}
+		})
+	</script>
+	
+</body>
+</html>

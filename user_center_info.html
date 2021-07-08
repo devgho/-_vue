@@ -1,0 +1,222 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>天天生鲜-用户中心</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="feng">
+        <div class="header_con">
+            <div class="header">
+                <div class="welcome fl">欢迎来到天天生鲜!</div>
+                <div class="fr">
+                    <div class="login_info fl">
+                        欢迎您：<em>刘 博</em>
+                    </div>
+                    <div class="login_btn fl">
+                        <a href="login.html">登录</a>
+                        <span>|</span>
+                        <a href="register.html">注册</a>
+                    </div>
+                    <div class="user_link fl">
+                        <span>|</span>
+                        <a href="user_center_info.html">用户中心</a>
+                        <span>|</span>
+                        <a href="cart.html">我的购物车</a>
+                        <span>|</span>
+                        <a href="user_center_info.html">我的订单</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search_bar clearfix">
+            <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+            <div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
+            <div class="search_con fr">
+                <input type="text" class="input_text fl" name="" placeholder="搜索商品">
+                <input type="button" class="input_btn fr" name="" value="搜索">
+            </div>
+        </div>
+
+        <div class="main_con clearfix">
+            <div class="left_menu_con clearfix">
+                <h3>用户中心</h3>
+                <ul>
+                    <li><a href="#" :class="{active:now=='user_info'}" @click.prevent="now='user_info'">· 个人信息</a></li>
+                    <li><a href="#" :class="{active:now=='user_order'}" @click.prevent="now='user_order'">· 全部订单</a>
+                    </li>
+                    <li><a href="#" :class="{active:now=='address'}" @click.prevent="now='address'">· 收货地址</a></li>
+                </ul>
+            </div>
+            <div v-if="now == 'user_info'">
+                <div class="right_content clearfix">
+                    <div class="info_con clearfix">
+                        <h3 class="common_title2">基本信息</h3>
+                        <ul class="user_info_list">
+                            <li><span>用户名：</span>{{user_info.username}}</li>
+                            <li><span>联系方式：</span>{{user_info.contact}}</li>
+                            <li><span>联系地址：</span>{{user_info.address}}</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="common_title2">最近浏览</h3>
+                    <div class="has_view_list">
+                        <ul class="goods_type_list clearfix">
+                            <li v-for="good in user_info.recent">
+                                <a href="detail.html"><img :src="good.img"></a>
+                                <h4><a href="detail.html">{{good.name}}</a></h4>
+                                <div class="operate">
+                                    <span class="prize">￥{{good.price}}</span>
+                                    <span class="unit">{{good.weight}}</span>
+                                    <a href="#" class="add_goods" title="加入购物车"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div v-if="now == 'user_order'">
+                <div class="right_content clearfix">
+                        <h3 class="common_title2">全部订单</h3>
+                    <div v-for="order in user_order">
+                        <ul class="order_list_th w978 clearfix">
+                            <li class="col01">{{order.time}}</li>
+                            <li class="col02">{{order.SN}}</li>
+                            <li class="col02 stress">{{order.status}}</li>
+                        </ul>
+
+                        <table class="order_list_table w980">
+                            <tbody>
+                                <tr>
+                                    <td width="55%">
+                                        <ul class="order_goods_list clearfix" v-for="good in order.goods">
+                                            <li class="col01"><img :src="good.img"></li>
+                                            <li class="col02">{{good.name}}<em>{{good.weight}}g</em></li>
+                                            <li class="col03">{{good.num}}</li>
+                                            <li class="col04">{{good.price}}元</li>
+                                        </ul>
+                                    </td>
+                                    <td width="15%">{{order.price}}元</td>
+                                    <td width="15%">{{order.status}}</td>
+                                    <td width="15%" v-if="order.status=='未支付'"><a href="#" class="oper_btn">去付款</a></td>
+                                    <td width="15%" v-if="order.status=='已支付'"><a href="#" class="oper_btn" >查物流</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagenation">
+                            <a href="#">上一页</a>
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">下一页></a>
+                    </div>
+                </div>
+            </div>
+            <div v-if="now == 'address'">
+                <div class="right_content clearfix">
+                    <h3 class="common_title2">收货地址</h3>
+                    <div class="site_con">
+                        <dl>
+                            <dt>当前地址：</dt>
+                            <dd>{{address}}</dd>
+                        </dl>
+                    </div>
+                    <h3 class="common_title2">编辑地址</h3>
+                    <div class="site_con">
+                        <form>
+                            <div class="form_group">
+                                <label>收件人：</label>
+                                <input type="text" name="">
+                            </div>
+                            <div class="form_group form_group2">
+                                <label>详细地址：</label>
+                                <textarea class="site_area"></textarea>
+                            </div>
+                            <div class="form_group">
+                                <label>邮编：</label>
+                                <input type="text" name="">
+                            </div>
+                            <div class="form_group">
+                                <label>手机：</label>
+                                <input type="text" name="">
+                            </div>
+
+                            <input type="submit" name="" value="提交" class="info_submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+        <p>电话：010-****888 京ICP备*******8号</p>
+    </div>
+    </div>
+    <script>
+        let v = new Vue({
+            el: '#feng',
+            data: {
+                now: "user_info",
+                user_info: {
+                    username: '18210569700',
+                    contact: '18210569700',
+                    address: '北京市昌平区',
+                    recent: [
+                        { name: '草莓', img: 'images/goods/goods003.jpg', price: '30.00', weight: '500g' },
+                        { name: '柠檬', img: 'images/goods/goods001.jpg', price: '16.80', weight: '500g' },
+                        { name: '虾仁', img: 'images/goods/goods018.jpg', price: '100.00', weight: '500g' },
+                        { name: '樱桃', img: 'images/goods/goods017.jpg', price: '32.00', weight: '500g' },
+                    ]
+                },
+                user_order: [{
+                    time: '2016-8-21 17:36:24',
+                    order_SN: '56872934',
+                    status: '未支付',
+                    goods: [
+                        { name: '苹果', img: 'images/goods02.jpg', price: '11.80', weight: '500g', num: 1 },
+                        { name: '苹果', img: 'images/goods02.jpg', price: '11.80', weight: '500g', num: 1 }
+                    ],
+                    price: '33.60',
+                }, {
+                    time: '2016-8-21 17:36:24',
+                    order_SN: '56872934',
+                    status: '已支付',
+                    goods: [
+                        { name: '苹果', img: 'images/goods02.jpg', price: '11.80', weight: '500g', num: 1 },
+                        { name: '苹果', img: 'images/goods02.jpg', price: '11.80', weight: '500g', num: 1 }
+                    ],
+                    price: '33.60',
+                },],
+                address:'北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528'
+                
+            }
+        })
+    </script>
+
+</body>
+
+</html>

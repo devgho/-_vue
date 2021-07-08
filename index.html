@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>天天生鲜-首页</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/slide.js"></script>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="feng">
+        <div class="header_con">
+            <div class="header">
+                <div class="welcome fl">欢迎来到天天生鲜!</div>
+                <div class="fr">
+                    <div class="login_info fl">
+                        欢迎您：<em>刘 博</em>
+                    </div>
+                    <div class="login_btn fl">
+                        <a href="login.html">登录</a>
+                        <span>|</span>
+                        <a href="register.html">注册</a>
+                    </div>
+                    <div class="user_link fl">
+                        <span>|</span>
+                        <a href="user_center_info.html">用户中心</a>
+                        <span>|</span>
+                        <a href="cart.html">我的购物车</a>
+                        <span>|</span>
+                        <a href="user_center_info.html">我的订单</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="search_bar clearfix">
+            <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+            <div class="search_con fl">
+                <input type="text" class="input_text fl" name="" placeholder="搜索商品">
+                <input type="button" class="input_btn fr" name="" value="搜索">
+            </div>
+            <div class="guest_cart fr">
+                <a href="cart.html" class="cart_name fl">我的购物车</a>
+                <div class="goods_count fl" id="show_count">1</div>
+            </div>
+        </div>
+
+        <div class="navbar_con">
+            <div class="navbar">
+                <h1 class="fl">全部商品分类</h1>
+            </div>
+        </div>
+
+        <div class="center_con clearfix">
+            <ul class="subnav fl">
+                <li><a href="#model01" class="fruit">新鲜水果</a></li>
+                <li><a href="#model02" class="seafood">海鲜水产</a></li>
+                <li><a href="#model03" class="meet">猪牛羊肉</a></li>
+                <li><a href="#model04" class="egg">禽类蛋品</a></li>
+                <li><a href="#model05" class="vegetables">新鲜蔬菜</a></li>
+                <li><a href="#model06" class="ice">速冻食品</a></li>
+            </ul>
+            <div class="slide fl">
+                <ul class="slide_pics">
+                    <li><img src="images/slide.jpg" alt="幻灯片"></li>
+                    <li><img src="images/slide02.jpg" alt="幻灯片"></li>
+                    <li><img src="images/slide03.jpg" alt="幻灯片"></li>
+                    <li><img src="images/slide04.jpg" alt="幻灯片"></li>
+                </ul>
+                <div class="prev"></div>
+                <div class="next"></div>
+                <ul class="points"></ul>
+            </div>
+            <div class="adv fl">
+                <a href="#"><img src="images/adv01.jpg"></a>
+                <a href="#"><img src="images/adv02.jpg"></a>
+            </div>
+        </div>
+
+        <!-- 新鲜水果start -->
+        <div class="list_model">
+            <div class="list_title clearfix">
+                <h3 class="fl" id="model01">新鲜水果</h3>
+                <a href="list.html" class="goods_more fr" id="fruit_more">查看更多 ></a>
+            </div>
+
+            <div class="goods_con clearfix">
+                <div class="goods_banner fl"><img src="images/banner01.jpg"></div>
+                <ul class="goods_list fl">
+                    <li v-for="f in fruit.slice(0,4)">
+                        <h4><a :href="sendURL(f.id)">{{f.name}}</a></h4>
+                        <a :href="sendURL(f.id)"><img :src="f.img"></a>
+                        <div class="prize">¥ {{f.price}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 新鲜水果end -->
+
+        <div class="list_model">
+            <div class="list_title clearfix">
+                <h3 class="fl" id="model02">海鲜水产</h3>
+                <a href="list.html" class="goods_more fr">查看更多 ></a>
+            </div>
+
+            <div class="goods_con clearfix">
+                <div class="goods_banner fl"><img src="images/banner02.jpg"></div>
+                <ul class="goods_list fl">
+                    <li v-for="sea in seafood.slice(0,4)">
+                        <h4><a :href="sendURL(sea.id)">{{sea.name}}</a></h4>
+                        <a :href="sendURL(sea.id)"><img :src="sea.img"></a>
+                        <div class="prize">¥ {{sea.price}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="list_model">
+            <div class="list_title clearfix">
+                <h3 class="fl" id="model03">猪牛羊肉</h3>
+                <a href="list.html" class="goods_more fr">查看更多 ></a>
+            </div>
+
+            <div class="goods_con clearfix">
+                <div class="goods_banner fl"><img src="images/banner03.jpg"></div>
+                <ul class="goods_list fl">
+                    <li v-for="m in meat.slice(0,4)">
+                        <h4><a :href="sendURL(m.id)">{{m.name}}</a></h4>
+                        <a :href="sendURL(m.id)"><img :src="m.img"></a>
+                        <div class="prize">¥ {{m.price}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="list_model">
+            <div class="list_title clearfix">
+                <h3 class="fl" id="model04">禽类蛋品</h3>
+                <a href="list.html" class="goods_more fr">查看更多 ></a>
+            </div>
+
+            <div class="goods_con clearfix">
+                <div class="goods_banner fl"><img src="images/banner04.jpg"></div>
+                <ul class="goods_list fl">
+                    <li v-for="e in egg.slice(0,4)">
+                        <h4><a :href="sendURL(e.id)">{{e.name}}</a></h4>
+                        <a :href="sendURL(e.id)"><img :src="e.img"></a>
+                        <div class="prize">¥ {{e.price}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="list_model">
+            <div class="list_title clearfix">
+                <h3 class="fl" id="model05">新鲜蔬菜</h3>
+                <a href="list.html" class="goods_more fr">查看更多 ></a>
+            </div>
+
+            <div class="goods_con clearfix">
+                <div class="goods_banner fl"><img src="images/banner05.jpg"></div>
+                <ul class="goods_list fl">
+                    <li v-for="v in vegetable.slice(0,4)">
+                        <h4><a :href="sendURL(v.id)">{{v.name}}</a></h4>
+                        <a :href="sendURL(v.id)"><img :src="v.img"></a>
+                        <div class="prize">¥ {{v.price}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="list_model">
+            <div class="list_title clearfix">
+                <h3 class="fl" id="model06">速冻食品</h3>
+                <a href="list.html" class="goods_more fr">查看更多 ></a>
+            </div>
+
+            <div class="goods_con clearfix">
+                <div class="goods_banner fl"><img src="images/banner06.jpg"></div>
+                <ul class="goods_list fl">
+                    <li v-for="i in ice.slice(0,4)">
+                        <h4><a :href="sendURL(i.id)">{{i.name}}</a></h4>
+                        <a :href="sendURL(i.id)"><img :src="i.img"></a>
+                        <div class="prize">¥ {{i.name}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="foot_link">
+                <a href="#">关于我们</a>
+                <span>|</span>
+                <a href="#">联系我们</a>
+                <span>|</span>
+                <a href="#">招聘人才</a>
+                <span>|</span>
+                <a href="#">友情链接</a>
+            </div>
+            <p>CopyRight © 2016 北京某某信息技术有限公司 All Rights Reserved</p>
+            <p>电话：010-****888    京ICP备*******8号</p>
+        </div>
+</div>
+
+<script>
+    let v = new Vue({
+        el:'#feng',
+        data:{
+            nowid: 0,
+            fruit:[
+                {id:1,name:'草莓',img:'images/goods/goods003.jpg',price:'16.80'},
+                {id:1,name:'草莓',img:'images/goods/goods003.jpg',price:'16.80'},
+                {id:1,name:'草莓',img:'images/goods/goods003.jpg',price:'16.80'},
+                {id:1,name:'草莓',img:'images/goods/goods003.jpg',price:'16.80'},
+            ],
+            seafood:[
+                {id:2,name:'大虾',img:'images/goods/goods021.jpg',price:'35.20'},
+                {id:2,name:'大虾',img:'images/goods/goods021.jpg',price:'35.20'},
+                {id:2,name:'大虾',img:'images/goods/goods021.jpg',price:'35.20'},
+                {id:2,name:'大虾',img:'images/goods/goods021.jpg',price:'35.20'}
+            ],
+            meat:[
+                {id:3,name:'牛排',img:'images/slide03.jpg',price:'268.00'},
+                {id:3,name:'牛排',img:'images/slide03.jpg',price:'268.00'},
+                {id:3,name:'牛排',img:'images/slide03.jpg',price:'268.00'},
+                {id:3,name:'牛排',img:'images/slide03.jpg',price:'268.00'},
+            ],
+            egg:[
+                {id:4,name:'有机土鸡蛋',img:'images/banner04.jpg',price:'25.20'},
+                {id:4,name:'有机土鸡蛋',img:'images/banner04.jpg',price:'25.20'},
+                {id:4,name:'有机土鸡蛋',img:'images/banner04.jpg',price:'25.20'},
+                {id:4,name:'有机土鸡蛋',img:'images/banner04.jpg',price:'25.20'},
+            ],
+            vegetable:[
+                {id:5,name:'绿色有机蔬菜',img:'images/banner05.jpg',price:'18.30'},
+                {id:5,name:'绿色有机蔬菜',img:'images/banner05.jpg',price:'18.30'},
+                {id:5,name:'绿色有机蔬菜',img:'images/banner05.jpg',price:'18.30'},
+                {id:5,name:'绿色有机蔬菜',img:'images/banner05.jpg',price:'18.30'},
+            ],
+            ice:[
+                {id:6,name:'香草冰淇淋',img:'images/banner06.jpg',price:'7.50'},
+                {id:6,name:'香草冰淇淋',img:'images/banner06.jpg',price:'7.50'},
+                {id:6,name:'香草冰淇淋',img:'images/banner06.jpg',price:'7.50'},
+                {id:6,name:'香草冰淇淋',img:'images/banner06.jpg',price:'7.50'},
+            ]
+        },
+        methods:{
+                sendURL(id){
+					return 'detail.html?id='+id;
+				}
+			}   
+    })
+</script>
+
+<script type="text/javascript" src="js/slideshow.js"></script>
+<script type="text/javascript">
+    BCSlideshow('focuspic');
+    var oFruit = document.getElementById('fruit_more');
+    var oShownum = document.getElementById('show_count');
+
+    var hasorder = localStorage.getItem('order_finish');
+
+    if(hasorder)
+    {
+        oShownum.innerHTML = '2';
+    }
+
+    oFruit.onclick = function(){
+        window.location.href = 'list.html';
+    }</script>
+</body>
+</html>
